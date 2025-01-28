@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Web Component</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100svh;
+        }
+
+        .player-video__wrapper {
+            border: 10px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <player-video title="VUE PLAYER!" loop controls muted>
+            <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/cat.mp4"
+                type="video/mp4" media="(min-width:901px)">
+            <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
+                type="video/mp4" media="(max-width:900px)">
+            <div slot="controls">
+                <h1 slot="title">My custom controls</h1>
+            </div>
+        </player-video>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>
