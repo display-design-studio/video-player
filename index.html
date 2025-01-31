@@ -16,10 +16,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100svh;
+
         }
 
         .player-video__wrapper {
+            border: 10px solid #333;
+        }
+
+        [data-video-player="play-button"].paused:before {
+            content: "Play";
+        }
+
+        [data-video-player="play-button"]:before {
+            content: "Pause";
+        }
+
+        [data-video-player="mute-button"].muted:before {
+            content: "Unmute";
+        }
+
+        [data-video-player="mute-button"]:before {
+            content: "Mute";
+        }
+
+        video-player:defined {
+            display: block;
             border: 10px solid #333;
         }
     </style>
@@ -27,15 +48,21 @@
 
 <body>
     <div class="container">
-        <player-video title="VUE PLAYER!" loop controls muted>
+        <video-player muted loop autoplay>
             <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/cat.mp4"
                 type="video/mp4" media="(min-width:901px)">
             <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
                 type="video/mp4" media="(max-width:900px)">
             <div slot="controls">
-                <h1 slot="title">My custom controls</h1>
+                <button data-video-player="play-button"></button>
+                <button data-video-player="mute-button"></button>
+                <button data-video-player="fullscreen-button">Fullscreen</button>
+                <button data-video-player="pip-button">Pip</button>
+                <p data-video-player="current-time"></p>
+                <p data-video-player="duration"></p>
+                <input data-video-player="progress-bar" type="range" min="0" max="100" value="0">
             </div>
-        </player-video>
+        </video-player>
     </div>
 
     <script src="js/index.js"></script>
