@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Custom Web Component</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                overscroll-behavior: none;
+            }
+
+            video-player {
+                display: block;
+                width: 100%;
+                height: 100svh;
+                position: relative;
+                overflow: hidden;
+            }
+
+            video-player::part(video) {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .controls-wrapper {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                width: 100%;
+            }
+
+            .controls {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                margin-inline: 10px;
+
+                .controls__play-mute {
+                    width: fit-content;
+
+                    [data-video-player="play-button"].paused:before {
+                        content: "Play";
+                    }
+
+                    [data-video-player="play-button"]:before {
+                        content: "Pause";
+                    }
+
+                    [data-video-player="mute-button"].muted:before {
+                        content: "Unmute";
+                    }
+
+                    [data-video-player="mute-button"]:before {
+                        content: "Mute";
+                    }
+                }
+
+                .controls__time {
+                    width: fit-content;
+                    display: flex;
+                    gap: 5px;
+                    flex: 1;
+
+                    [data-video-player="progress-bar"] {
+                        width: 100%;
+                    }
+                }
+
+                .controls__utils {
+                    width: fit-content;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <video-player muted loop autoplay>
+                <source
+                    slot="video"
+                    src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/cat.mp4"
+                    type="video/mp4"
+                    media="(min-width:901px)"
+                />
+                <source
+                    slot="video"
+                    src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
+                    type="video/mp4"
+                    media="(max-width:900px)"
+                />
+                <div slot="controls" class="controls-wrapper">
+                    <div class="controls">
+                        <div class="controls__play-mute">
+                            <button data-video-player="play-button"></button>
+                            <button data-video-player="mute-button"></button>
+                        </div>
+                        <div class="controls__time">
+                            <p data-video-player="current-time"></p>
+                            /
+                            <p data-video-player="duration"></p>
+                            <input
+                                data-video-player="progress-bar"
+                                type="range"
+                                min="0"
+                                max="100"
+                                value="0"
+                            />
+                        </div>
+                        <div class="controls__utils">
+                            <button data-video-player="fullscreen-button">Fullscreen</button>
+                            <button data-video-player="pip-button">Pip</button>
+                        </div>
+                    </div>
+                </div>
+            </video-player>
+        </div>
+
+        <script src="js/index.js"></script>
+    </body>
+</html>
