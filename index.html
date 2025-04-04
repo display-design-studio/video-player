@@ -1,71 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Custom Web Component</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Web Component</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            .player-video__wrapper {
+                border: 10px solid #333;
+            }
 
-        }
+            [data-video-player="play-button"].paused:before {
+                content: "Play";
+            }
 
-        .player-video__wrapper {
-            border: 10px solid #333;
-        }
+            [data-video-player="play-button"]:before {
+                content: "Pause";
+            }
 
-        [data-video-player="play-button"].paused:before {
-            content: "Play";
-        }
+            [data-video-player="mute-button"].muted:before {
+                content: "Unmute";
+            }
 
-        [data-video-player="play-button"]:before {
-            content: "Pause";
-        }
+            [data-video-player="mute-button"]:before {
+                content: "Mute";
+            }
 
-        [data-video-player="mute-button"].muted:before {
-            content: "Unmute";
-        }
+            video-player::part(video) {
+                aspect-ratio: 16/9;
+                object-fit: cover;
 
-        [data-video-player="mute-button"]:before {
-            content: "Mute";
-        }
+                @media (max-width: 1024px) {
+                    aspect-ratio: 1/1;
+                }
+            }
+        </style>
+    </head>
 
-        video-player:defined {
-            display: block;
-            border: 10px solid #333;
-        }
-    </style>
-</head>
+    <body>
+        <div class="container">
+            <video-player muted loop autoplay>
+                <source
+                    slot="video"
+                    src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/cat.mp4"
+                    type="video/mp4"
+                    media="(min-width:901px)"
+                />
+                <source
+                    slot="video"
+                    src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
+                    type="video/mp4"
+                    media="(max-width:900px)"
+                />
+                <div slot="controls">
+                    <button data-video-player="play-button"></button>
+                    <button data-video-player="mute-button"></button>
+                    <button data-video-player="fullscreen-button">Fullscreen</button>
+                    <button data-video-player="pip-button">Pip</button>
+                    <p data-video-player="current-time"></p>
+                    <p data-video-player="duration"></p>
+                    <input
+                        data-video-player="progress-bar"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="0"
+                    />
+                </div>
+            </video-player>
+        </div>
 
-<body>
-    <div class="container">
-        <video-player muted loop autoplay>
-            <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/cat.mp4"
-                type="video/mp4" media="(min-width:901px)">
-            <source slot="video" src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
-                type="video/mp4" media="(max-width:900px)">
-            <div slot="controls">
-                <button data-video-player="play-button"></button>
-                <button data-video-player="mute-button"></button>
-                <button data-video-player="fullscreen-button">Fullscreen</button>
-                <button data-video-player="pip-button">Pip</button>
-                <p data-video-player="current-time"></p>
-                <p data-video-player="duration"></p>
-                <input data-video-player="progress-bar" type="range" min="0" max="100" value="0">
-            </div>
-        </video-player>
-    </div>
-
-    <script src="js/index.js"></script>
-</body>
-
+        <script src="js/index.js"></script>
+    </body>
 </html>
