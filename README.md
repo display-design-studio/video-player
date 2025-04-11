@@ -1,7 +1,5 @@
 # Video Player - Custom Element
-## The scope of this project is to explore web components and create a framework-agnostic element.
-
----
+### The scope of this project is to explore web components and create a framework-agnostic video player element.
 
 ### Props:
 | Prop | Type | Default |
